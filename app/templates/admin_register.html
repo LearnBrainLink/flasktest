@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin Account - Unity Volunteers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'unity-primary': '#0d6efd',
+                        'unity-primary-darker': '#0b5ed7',
+                        'unity-text-white': '#ffffff',
+                        'unity-light-bg': '#f8f9fa',
+                        'unity-text-dark': '#212529',
+                        'unity-text-muted': '#6b7280',
+                        'unity-border': '#d1d5db',
+                        'unity-gray-50': '#f9fafb',
+                        'unity-gray-800': '#27272a',
+                        'unity-gray-400': '#9ca3af',
+                        'unity-indigo-100': '#e0f2fe',
+                        'unity-indigo-700': '#4f46e5',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .signup-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+
+<body class="bg-unity-light-bg flex flex-col min-h-screen">
+    <main class="flex-1 flex items-center justify-center py-10">
+        <div class="relative w-full max-w-md bg-white rounded-lg signup-card overflow-hidden">
+            <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 rounded-full bg-unity-primary opacity-30 blur-xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-32 h-32 rounded-full bg-unity-primary-darker opacity-30 blur-xl"></div>
+
+            <div class="px-8 py-10">
+                <div class="flex items-center justify-center mb-6">
+                    <a href="/" class="text-2xl font-semibold text-unity-text-dark tracking-tight">
+                        Unity Volunteers
+                    </a>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-unity-text-dark text-center mb-6">Create Admin Account</h2>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div x-data="{ open: true }" x-show="open"
+                    class="bg-{% if category == 'error' %}red{% else %}green{% endif %}-100 border border-{% if category == 'error' %}red{% else %}green{% endif %}-400 text-{% if category == 'error' %}red{% else %}green{% endif %}-700 px-4 py-3 rounded relative mb-4"
+                    role="alert">
+                    <strong class="font-bold">{% if category == 'error' %}Error!{% else %}Success!{% endif %}</strong>
+                    <span class="block sm:inline">{{ message }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <button @click="open = false" type="button"
+                            class="text-{% if category == 'error' %}red{% else %}green{% endif %}-500 hover:text-{% if category == 'error' %}red{% else %}green{% endif %}-700 focus:outline-none">
+                            <svg class="h-6 w-6 fill-current" role="button" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </span>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <form action="/admin/register" method="post" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-unity-text-muted">Username</label>
+                        <input type="text" id="username" name="username"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-unity-text-muted">Name</label>
+                        <input type="text" id="name" name="name"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="age" class="block text-sm font-medium text-unity-text-muted">Age</label>
+                        <input type="number" id="age" name="age"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-unity-text-muted">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-unity-text-muted">Password</label>
+                        <input type="password" id="password" name="password"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="confirmPassword" class="block text-sm font-medium text-unity-text-muted">Confirm
+                            Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                    </div>
+                    <div>
+                        <label for="adminCode" class="block text-sm font-medium text-unity-text-muted">Admin Code</label>
+                        <input type="text" id="adminCode" name="adminCode"
+                            class="shadow-sm focus:ring-unity-primary focus:border-unity-primary block w-full sm:text-sm border-unity-border rounded-md py-2 text-unity-text-dark"
+                            required>
+                        <p class="text-xs text-unity-text-muted mt-1">Enter the code to create an admin account.</p>
+                    </div>
+                    <div>
+                        <button type="submit"
+                            class="w-full py-2 px-4 bg-unity-primary text-unity-text-white font-semibold rounded-md shadow-md hover:bg-unity-primary-darker focus:outline-none focus:ring-2 focus:ring-unity-primary focus:ring-offset-2">
+                            Create Admin Account
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="/login" class="inline-block font-medium text-unity-primary hover:underline">
+                        Already have an account? Login
+                    </a>
+                </div>
+            </div>
+
+            <div
+                class="bg-unity-light-bg py-4 px-8 border-t border-unity-border flex items-center justify-center space-x-4 text-unity-text-muted text-sm">
+                <span><span class="rounded-full w-2 h-2 inline-block mr-1 bg-unity-primary"></span> Community</span>
+                <span><span class="rounded-full w-2 h-2 inline-block mr-1 bg-unity-primary-darker"></span> Volunteer</span>
+                <span><span class="rounded-full w-2 h-2 inline-block mr-1 bg-unity-indigo-700"></span> Connect</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-unity-gray-800 text-unity-gray-400 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="order-2 md:order-1 mt-4 md:mt-0">
+                    <p class="text-center md:text-left">&copy; <span id="current-year"></span> Unity Volunteers. All
+                        rights reserved.</p>
+                </div>
+                <div class="order-1 md:order-2 flex items-center space-x-4">
+                    <a href="#" class="hover:text-white">About Us</a>
+                    <a href="#" class="hover:text-white">Contact</a>
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>
